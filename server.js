@@ -89,40 +89,40 @@ let obj = JSON.parse(object);
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'application/json; charset=utf8');
-//   res.end(output); của EX4
-//Phần dưới đây là của EX5
-//   if(req.url === '/'){
-//     res.end("<h1>This is homepage</h1>");
-//   }else if(req.url === '/overview'){
-//     res.end("<h1>This is overview page</h1>");
-//   }else if(req.url === '/product'){
-//     res.end("<h1>This is product page</h1>");
-//   }else if(req.url === '/api'){   // EX6
-//     res.end(JSON.stringify(obj)); // EX6
-//   }else if(req.url === '/api/'){  // EX6
+//   res.end(output); //của EX4
+// Phần dưới đây là của EX5
+  if(req.url === '/'){
+    res.end("<h1>This is homepage</h1>");
+  }else if(req.url === '/overview'){
+    res.end("<h1>This is overview page</h1>");
+  }else if(req.url === '/product'){
+    res.end("<h1>This is product page</h1>");
+  }else if(req.url === '/api'){   // EX6
+    res.end(JSON.stringify(obj)); // EX6
+  }else if(req.url.startsWith('/api/')){  // EX6
 
-//     let urlParts = req.url.split('/');
-//     let idd = parseInt(urlParts[urlParts.length-1]);
+    let urlParts = req.url.split('/');
+    let idd = urlParts[urlParts.length-1];
 
-//     let item  = obj.find(o => o.id === idd);
-//     if(item){
-//         res.end(JSON.stringify(item));
-//     }else{
-//         console.log("Object NOT FOUND");  // EX6
-//     }
-//   }else{
-//     res.end("<h1>PAGE NOT FOUND</h1>");
-//   }
+    let item  = obj.find(o => String(o.id) === idd);
+    if(item){
+        res.end(JSON.stringify(item));
+    }else{
+        console.log("Object NOT FOUND");  // EX6
+    }
+  }else{
+    res.end("<h1>PAGE NOT FOUND</h1>");
+  }
 //EX07
-     let overview = readFileSync("./templates/overview.html",{encoding:"utf8"});
-     let product = readFileSync("./templates/product.html",{encoding:"utf8"});
-     if(req.url === "/"){
-        res.end(overview);
-     }else if(req.url === "/overview"){
-        res.end(overview);
-     }else if(req.url === "/product"){
-        res.end(product);
-     }
+    //  let overview = readFileSync("./templates/overview.html",{encoding:"utf8"});
+    //  let product = readFileSync("./templates/product.html",{encoding:"utf8"});
+    //  if(req.url === "/"){
+    //     res.end(overview);
+    //  }else if(req.url === "/overview"){
+    //     res.end(overview);
+    //  }else if(req.url === "/product"){
+    //     res.end(product);
+    //  }
 });
 
 server.listen(port, hostname, () => {
